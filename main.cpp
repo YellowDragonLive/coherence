@@ -20,7 +20,7 @@ using namespace::std;
 int main()
 {
 
-	int N = pow(2,12);	// number of data points
+	int N = 1000+pow(2,12);	// number of data points
 	int SN = 256;		// number of points in a segment
 	int sn = SN;		// number of points overlap in each segment
 	double dt = 1.;	// time step size
@@ -32,7 +32,7 @@ int main()
 	VecDoub x(N,0.0);
 	VecDoub y(N,0.0);
 
-	for(int i=0;i<(N-100);i++) {
+	for(int i=0;i<N;i++) {
 		x[i] = (r.doub() - 1)*0.01 + sin(2*pi*i*10/N);
 		y[i] = (r.doub() - 1)*0.01 + sin(2*pi*i*10/N);
 	}
@@ -42,14 +42,16 @@ int main()
 	VecDoub Sxy(SN,0.0);	
 	VecDoub ftx(SN,0.0);
 	VecDoub fty(SN,0.0);
-
-	for(int i=0;i*SN<N;i++) {
+	int count =0;
+	for(int i=0;(i+1)*SN<N;i++) {
 		VecDoub xtemp(SN,0.0);
 		VecDoub ytemp(SN,0.0);
-
+		
 		for(int j=0;j<SN;j++) {
 			xtemp[j] = x[j+i*sn]*hann(j,SN);
 			ytemp[j] = y[j+i*sn]*hann(j,SN);
+			if(count != j+i*sn) cout << "jffjfj" << endl;
+			count ++;
 		}
 
 		realft(xtemp,1);
@@ -80,7 +82,7 @@ int main()
 			}
 		}
 	}
-
+	cout << count << endl;
 
 	VecDoub Sxx_real = remove_complex(Sxx,Sxx.size());
 	VecDoub Syy_real = remove_complex(Syy,Syy.size());
