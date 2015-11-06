@@ -31,13 +31,16 @@ namespace coh {
 	}
 
 
-	// hanning filter (time domain)
+	// Windows filter (time domain)
 	// i is the time index, N is the total number of points
+
+	// hannign window
 	double hann(int i,int N)
 	{
 		return 0.5*(1-cos(2*coh::PI*i/N));
 	}
 
+	// square window
 	double no_filter(int i,int N) {	return 1;}
 
 
@@ -45,7 +48,7 @@ namespace coh {
 
 
 template<class V>
-V coherence(const V& x, const V& y, int N, int SN,int D, double (*filter)(int,int)=coh::hann)
+V coherence(const V& x, const V& y, int N, int SN,int D, double (*window)(int,int)=coh::hann)
 {
 	V Sxx(SN,0.0);
 	V Syy(SN,0.0);
