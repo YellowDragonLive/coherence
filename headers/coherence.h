@@ -38,25 +38,26 @@ namespace coh {
 		return 0.5*(1-cos(2*coh::PI*i/N));
 	}
 
+	double no_filter(int i,int N) {	return 1;}
 
 
 }
 
 
 template<class V>
-V coherence(const V& x, const V& y, int N, int SN, double (*filter)(int,int)=coh::hann)
+V coherence(const V& x, const V& y, int N, int SN,int D, double (*filter)(int,int)=coh::hann)
 {
 	V Sxx(SN,0.0);
 	V Syy(SN,0.0);
 	V Sxy(SN,0.0);
 
-	for(int i=0i;i*SN<(N-SN);i++) {
+	for(int i=0;i*(SN-D)<(N-0);i++) {
 		VecDoub xtemp(SN,0.0);
 		VecDoub ytemp(SN,0.0);
 	
 		for(int j=0;j<SN;j++) {
-			xtemp[j] = x[j+i*SN]*filter(j,SN);
-			ytemp[j] = y[j+i*SN]*filter(j,SN);
+			xtemp[j] = x[j+i*(SN-D)]*filter(j,SN);
+			ytemp[j] = y[j+i*(SN-D)]*filter(j,SN);
 		}
 
 		realft(xtemp,1);
