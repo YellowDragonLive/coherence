@@ -59,8 +59,8 @@ V coherence(const V& x, const V& y, int N, int SN,int D, double (*window)(int,in
 		VecDoub ytemp(SN,0.0);
 	
 		for(int j=0;j<SN;j++) {
-			xtemp[j] = x[j+i*(SN-D)]*filter(j,SN);
-			ytemp[j] = y[j+i*(SN-D)]*filter(j,SN);
+			xtemp[j] = x[j+i*(SN-D)]*window(j,SN);
+			ytemp[j] = y[j+i*(SN-D)]*window(j,SN);
 		}
 
 		realft(xtemp,1);
