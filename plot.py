@@ -32,8 +32,7 @@ plt.title("coh")
 
 plt.subplot(2,2,4)
 plt.plot(f,c)
-plt.plot(fr,coh)
-plt.title("coh scipy ")
+plt.title("coh scipy  hann")
 
 plt.tight_layout()
 plt.show()
